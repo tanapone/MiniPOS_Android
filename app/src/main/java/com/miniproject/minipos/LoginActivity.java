@@ -66,7 +66,6 @@ public class LoginActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 toast("ไม่สามารถเชื่อมต่อระบบได้");
                             }
-
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
                                 String responseStr = response.body().string();
