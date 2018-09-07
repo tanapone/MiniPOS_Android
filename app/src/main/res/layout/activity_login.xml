@@ -49,8 +49,22 @@
         android:text="Login"
         android:id="@+id/loginBtn"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ลืมรหัสผ่าน ?"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"/>
 
-
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_phonelink_setup_black_24dp"
+        android:background="@null"
+        android:layout_gravity="end"
+        android:layout_marginTop="5dp"
+        android:id="@+id/WSConfigImageBtn"
+        />
 
 </LinearLayout>
 

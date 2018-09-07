@@ -1,9 +1,11 @@
 package com.miniproject.minipos.Models;
 
+import android.app.Application;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class UserModel {
+public class UserModel extends Application {
     private User user;
 
     public UserModel(){
@@ -11,6 +13,11 @@ public class UserModel {
     }
 
     public UserModel(String jsonResponse){
+        Gson gson  = new GsonBuilder().create();
+        user = gson.fromJson(jsonResponse,User.class);
+    }
+
+    public void setModelByJson(String jsonResponse){
         Gson gson  = new GsonBuilder().create();
         user = gson.fromJson(jsonResponse,User.class);
     }
