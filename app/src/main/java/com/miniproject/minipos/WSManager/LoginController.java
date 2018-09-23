@@ -29,7 +29,7 @@ public class LoginController {
         final ProgressDialog progressDialog = new ProgressDialog(context);
             progressDialog.setMessage("กำลังโหลดข้อมูล...");
             progressDialog.show();
-            WSHelper wsHelper = new WSHelper(context);
+            final WSHelper wsHelper = new WSHelper(context);
             wsHelper.post(context.getString(R.string.login_url), jsonUserModelObj, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

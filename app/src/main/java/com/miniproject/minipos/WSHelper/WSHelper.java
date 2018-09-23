@@ -2,13 +2,17 @@ package com.miniproject.minipos.WSHelper;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
 
 import com.miniproject.minipos.DBHelper.DatabaseHelper;
 import com.miniproject.minipos.Models.MessageModel;
+import com.miniproject.minipos.Models.ProductModel;
 import com.miniproject.minipos.R;
 import com.miniproject.minipos.StorageHelper.StorageManager;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -23,6 +27,8 @@ import static xdroid.toaster.Toaster.toastLong;
 
 public class WSHelper {
     Context context;
+    String test;
+    String resData;
 
     public WSHelper(Context context){
         this.context = context;
@@ -46,6 +52,29 @@ public class WSHelper {
         Call call = client.newCall(request);
         call.enqueue(callback);
         return call;
+    }
+
+    public String getRequest(String url){
+        String[] serverConfig = sm.readServerConfig();
+        String serverPath = "http://"+serverConfig[0]+":"+serverConfig[1]+"/services";
+        String newUrl = serverPath.concat(url);
+        final OkHttpClient client = new OkHttpClient();
+        final Request request = new Request.Builder()
+                .url(serverPath)
+                .build();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String responseData = response.body().string();
+                resData = responseData;
+            }
+        });
+        return null;
     }
 
     public void testConnector(final String serverIP, final String serverPort) throws IOException{
@@ -73,8 +102,10 @@ public class WSHelper {
                     System.out.println("----------------------------");
                     System.out.println(serverPath);
                     System.out.println("----------------------------");
+                    Log.e("test","inside");
+                    test = "555";
                     progressDialog.dismiss();
-                }else{
+               }else{
                     System.out.println("----------------------------");
                     System.out.println(message.getMessage().getMessage().toString());
                     System.out.println("----------------------------");
@@ -85,7 +116,17 @@ public class WSHelper {
 
             }
         });
+        Log.e("test","oue");    }
+
+    public String getResData() {
+        return resData;
     }
 
+    public void setResData(String resData) {
+        this.resData = resData;
+    }
 
+    public String getTest() {
+        return test;
+    }
 }

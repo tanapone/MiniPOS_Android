@@ -1,8 +1,10 @@
 package com.miniproject.minipos;
 
 import android.app.AlertDialog;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     Pattern pattern;
     Matcher matcher;
     String Port_PATTERN = "^[1-9]{1}[0-9]{3}$";
+    WSHelper wsHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,10 +109,20 @@ public class LoginActivity extends AppCompatActivity {
                 }else if(validatePort(serverPort)==false){
                     serverPort_EditText.setError("รูปแบบ Port ผิด");
                 }else{
-                  WSHelper wsHelper = new WSHelper(LoginActivity.this);
+                  wsHelper = new WSHelper(LoginActivity.this);
                     try {
                         wsHelper.testConnector(serverIP,serverPort);
                         sm.writeServerConfig(serverIP,serverPort);
+                        Log.e("bra","dataout = "+wsHelper.getTest());
+
+                        final Handler handler = new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                Log.e("bra","datain = "+wsHelper.getTest());
+                            }
+                        }, 1000);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -117,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         dialog.show();
+
     }
 
 }
