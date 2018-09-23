@@ -18,10 +18,10 @@ import okhttp3.Response;
 
 import static xdroid.toaster.Toaster.toast;
 
-public class LoginManager {
+public class LoginController {
     Context context;
 
-    public LoginManager(Context context){
+    public LoginController(Context context){
         this.context = context;
     }
 

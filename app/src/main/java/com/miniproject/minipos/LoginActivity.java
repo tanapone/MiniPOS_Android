@@ -1,11 +1,6 @@
 package com.miniproject.minipos;
 
-import android.Manifest;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.pm.PackageManager;
-import android.os.Environment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,24 +9,17 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.google.gson.Gson;
-import com.miniproject.minipos.DBHelper.DatabaseHelper;
 import com.miniproject.minipos.Models.MessageModel;
 import com.miniproject.minipos.Models.UserModel;
 import com.miniproject.minipos.StorageHelper.StorageManager;
 import com.miniproject.minipos.WSHelper.WSHelper;
-import com.miniproject.minipos.WSManager.LoginManager;
+import com.miniproject.minipos.WSManager.LoginController;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Response;
 
 import static xdroid.toaster.Toaster.toast;
 import static xdroid.toaster.Toaster.toastLong;
@@ -67,9 +55,9 @@ public class LoginActivity extends AppCompatActivity {
                     user.getUser().setUsername(usernameEditText.getText().toString());
                     user.getUser().setPassword(passwordEditText.getText().toString());
                     try{
-                        LoginManager loginManager = new LoginManager(LoginActivity.this);
+                        LoginController loginController = new LoginController(LoginActivity.this);
                         String jsonUserModelObj = new Gson().toJson(user.getUser());
-                        loginManager.verifyLogin(jsonUserModelObj);
+                        loginController.verifyLogin(jsonUserModelObj);
                     }catch (Exception e){
                         e.printStackTrace();
                     }
